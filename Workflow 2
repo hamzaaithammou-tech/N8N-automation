@@ -1,0 +1,371 @@
+{
+  "name": "workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Q&A Submission ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name"
+            },
+            {
+              "fieldLabel": "email"
+            },
+            {
+              "fieldLabel": "question"
+            },
+            {
+              "fieldLabel": "ansewr",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        32
+      ],
+      "id": "063bd362-4c4b-4ae0-927a-f2c2cc7cf849",
+      "name": "On form submission",
+      "webhookId": "2fd2eb91-8c13-4b83-bbb1-589ffa0175df"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b42d7194-5579-46ab-bd04-03356b6c97e3",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "=gmail.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        32
+      ],
+      "id": "4d6622a3-7906-4367-b8c5-16b9f89c5c2d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "19ee46c1-4e80-4c14-9849-9cc54a5d3561",
+              "name": "IFtrue",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        -32
+      ],
+      "id": "cf4cb98f-123c-4788-9b2e-c2fd84751706",
+      "name": "true"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "19ee46c1-4e80-4c14-9849-9cc54a5d3561",
+              "name": "IFfalse",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        112
+      ],
+      "id": "30fd928b-ebbd-4378-a55f-ab8c1ce9592a",
+      "name": "false"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        656,
+        48
+      ],
+      "id": "593d4806-11d4-490f-99ca-522a1190bf9f",
+      "name": "ref"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze the following question and answer and output relevant tags\n\nquestion : {{ $json.question }}\n\nansewr : {{ $json.ansewr }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a content tagging expert. Your task is to analyze Question and Answer submissions and generate relevant, descriptive tags that categorize the content based on topics, key concepts, and technical terms. Analyze Q&A  4-8 tags as a common subject.\n\nExample Output:\npartner, partnerships, agency, external contractors, lead referral"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        864,
+        48
+      ],
+      "id": "badc7874-4288-47fb-80ee-1462ad67f19c",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "NPtP948iVG9RbLHr",
+          "mode": "list",
+          "cachedResultName": "Q&A",
+          "cachedResultUrl": "/projects/fO8QMhXIXR1CBGDV/datatables/NPtP948iVG9RbLHr"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Istrusted": "={{ $('ref').item.json.IFtrue }}",
+            "tags": "={{ $json.text }}",
+            "Name": "={{ $('ref').item.json.Name }}",
+            "email": "={{ $('ref').item.json.email }}",
+            "question": "={{ $('ref').item.json.question }}",
+            "answer": "={{ $('ref').item.json.ansewr }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "question",
+              "displayName": "question",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "answer",
+              "displayName": "answer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tags",
+              "displayName": "tags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Istrusted",
+              "displayName": "Istrusted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        48
+      ],
+      "id": "5afaea7d-f643-431a-bf06-e303e0047a9a",
+      "name": "Insert row"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        800,
+        256
+      ],
+      "id": "96ecf053-79ef-4b52-afd7-ab892a196211",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "K4TD3otx9wTurQjp",
+          "name": "Anthropic account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "true",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "false",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "true": {
+      "main": [
+        [
+          {
+            "node": "ref",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "false": {
+      "main": [
+        [
+          {
+            "node": "ref",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ref": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ce381f51-6d02-45c2-ab46-74b41887f7be",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "80132a03c7590d7e0f4197f05163928dfd8b57c6d94e89c4d88e0083515e93ff"
+  },
+  "id": "CZ4qlY99PkVNNb0E",
+  "tags": []
+}
