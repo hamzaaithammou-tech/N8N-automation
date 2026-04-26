@@ -1,4 +1,5 @@
-{"name": "workflow 1",
+{
+  "name": "workflow 1",
   "nodes": [
     {
       "parameters": {
