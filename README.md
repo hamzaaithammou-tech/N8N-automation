@@ -1,281 +1,300 @@
 # N8N Automation Workflows
- 
-Bienvenue dans mon repository N8N Automation ! 🚀 Ce projet contient une collection de workflows d'automation sophistiqués utilisant n8n pour intégrer différentes applications et APIs.
- 
-## 📋 Table des matières
- 
-- [À propos](#à-propos)
-- [Workflows inclus](#workflows-inclus)
-- [Prérequis](#prérequis)
+
+Welcome to my N8N Automation repository! 🚀 This project contains a collection of sophisticated automation workflows using n8n to integrate various applications and APIs.
+
+## 📋 Table of Contents
+
+- [About](#about)
+- [Workflows Included](#workflows-included)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Utilisation](#utilisation)
+- [Usage](#usage)
 - [Architecture](#architecture)
 - [Support](#support)
-## 🎯 À propos
- 
-Ce repository contient des workflows n8n automatisés conçus pour :
-- Traiter les soumissions de formulaires
-- Filtrer et traiter les données
-- Extraire des informations via des APIs
-- Intégrer Anthropic Chat pour l'intelligence artificielle
-- Insérer des données dans des bases de données
-- Envoyer des messages automatiques
-- Mettre à jour des lignes de données
-Les workflows utilisent une approche modulaire avec des conditions logiques (if/else) et une gestion avancée des données.
- 
-## 📦 Workflows inclus
- 
+
+## 🎯 About
+
+This repository contains automated n8n workflows designed for:
+- Processing form submissions
+- Filtering and processing data
+- Extracting information via APIs
+- Integrating Anthropic Chat for artificial intelligence
+- Inserting data into databases
+- Sending automatic messages
+- Updating data rows
+
+The workflows use a modular approach with logical conditions (if/else) and advanced data handling.
+
+## 📦 Workflows Included
+
 ### 1. **Form Submission & Processing Workflow**
-Workflow complet de traitement de soumissions de formulaires avec les étapes suivantes :
-- Déclencheur : Soumission de formulaire
-- Filtrage des données
-- Extraction d'informations
-- Branchement conditionnel (true/false/manual)
-- Intégration avec Anthropic Chat Model
-- Insertion de lignes en base de données
-- Envoi de messages
-**Cas d'usage** : Automatiser le traitement des demandes client, des inscriptions ou des enquêtes.
- 
+Complete workflow for processing form submissions with the following steps:
+- Trigger: Form submission
+- Data filtering
+- Information extraction
+- Conditional branching (true/false/manual)
+- Integration with Anthropic Chat Model
+- Database row insertion
+- Message sending
+
+**Use cases**: Automate customer request processing, registrations, or surveys.
+
 ### 2. **AI-Powered Chat Workflow**
-Workflow déclenchant une action automatisée au reçu d'un message chat :
-- Déclencheur : Réception d'un message chat
-- Intégration Anthropic Chat Model
-- Gestion de la mémoire simple
-- Récupération des données (fetch Q&A)
-- Insertion de lignes dans une base de données
-- Réponses automatiques
-**Cas d'usage** : Chatbot intelligent avec mémoire persistante et recherche de base de données.
- 
+Workflow triggered when receiving a chat message:
+- Trigger: Chat message received
+- Anthropic Chat Model integration
+- Simple memory management
+- Data fetching (fetch Q&A)
+- Database row insertion
+- Automatic responses
+
+**Use cases**: Intelligent chatbot with persistent memory and database search.
+
 ### 3. **Advanced Data Processing Workflow**
-Workflow avec logique conditionnelle avancée :
-- Conditions multiples (if/then/else)
-- Instructions manuelles comme option
-- Boucles itératives
-- Traitement en parallèle
-**Cas d'usage** : Workflows complexes nécessitant une logique métier sophistiquée.
- 
-## ✅ Prérequis
- 
-- **n8n** (auto-hébergé ou cloud) - [Installation](https://docs.n8n.io/getting-started/)
-- **Compte Anthropic** - Pour utiliser l'API Claude
-- **Bases de données supportées** : 
+Workflow with advanced conditional logic:
+- Multiple conditions (if/then/else)
+- Manual instructions as an option
+- Iterative loops
+- Parallel processing
+
+**Use cases**: Complex workflows requiring sophisticated business logic.
+
+## ✅ Prerequisites
+
+- **n8n** (self-hosted or cloud) - [Installation](https://docs.n8n.io/getting-started/)
+- **Anthropic Account** - To use Claude API
+- **Supported Databases**: 
   - PostgreSQL
   - MySQL
   - MongoDB
   - Google Sheets (via API)
-  - Autres intégrations n8n
-- **Node.js** (si auto-hébergé) - v14.0.0 ou supérieur
+  - Other n8n integrations
+- **Node.js** (if self-hosted) - v14.0.0 or higher
+
 ## 🚀 Installation
- 
-### Étape 1 : Cloner le repository
- 
+
+### Step 1: Clone the Repository
+
 ```bash
 git clone https://github.com/hamzaaithammou-tech/N8N-automation.git
 cd N8N-automation
 ```
- 
-### Étape 2 : Configurer n8n
- 
-Si vous utilisez n8n auto-hébergé :
- 
+
+### Step 2: Set Up n8n
+
+If you are using n8n self-hosted:
+
 ```bash
 npm install -g n8n
 n8n start
 ```
- 
-Puis accédez à `http://localhost:5678`
- 
-### Étape 3 : Importer les workflows
- 
-1. Dans l'interface n8n, allez à **Workflows**
-2. Cliquez sur **Import from file** ou **Import from URL**
-3. Sélectionnez les fichiers JSON des workflows depuis ce repository
-4. Les workflows seront importés avec leur configuration
+
+Then access `http://localhost:5678`
+
+### Step 3: Import Workflows
+
+1. In the n8n interface, go to **Workflows**
+2. Click on **Import from file** or **Import from URL**
+3. Select the JSON workflow files from this repository
+4. The workflows will be imported with their configuration
+
 ## ⚙️ Configuration
- 
-### Variables d'environnement
- 
-Créez un fichier `.env` à la racine du projet :
- 
+
+### Environment Variables
+
+Create a `.env` file at the root of the project:
+
 ```env
 # Anthropic API
 ANTHROPIC_API_KEY=your_api_key_here
- 
-# Base de données
+
+# Database
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=automation_db
 DB_USER=postgres
 DB_PASSWORD=your_password
- 
-# Webhook (si applicable)
+
+# Webhook (if applicable)
 WEBHOOK_URL=https://your-domain.com/webhook
- 
-# Paramètres n8n
+
+# n8n Settings
 N8N_WEBHOOK_TUNNEL_URL=https://your-domain.com
 ```
- 
-### Configuration des nœuds
- 
-Chaque workflow nécessite de configurer :
- 
-1. **Anthropic Chat Model** : 
-   - Ajouter votre clé API Anthropic
-   - Configurer le modèle (claude-opus, claude-sonnet, etc.)
-2. **Base de données** :
-   - Configurer la connexion à votre DB
-   - Modifier les requêtes SQL selon votre schéma
-3. **Déclencheurs** :
-   - Configurer les webhooks ou les triggers applicatifs
-   - Ajuster les filtres si nécessaire
-## 📖 Utilisation
- 
-### Déclencher manuellement un workflow
- 
+
+### Node Configuration
+
+Each workflow requires configuring:
+
+1. **Anthropic Chat Model**: 
+   - Add your Anthropic API key
+   - Configure the model (claude-opus, claude-sonnet, etc.)
+
+2. **Database**: 
+   - Configure your DB connection
+   - Modify SQL queries according to your schema
+
+3. **Triggers**: 
+   - Configure webhooks or application triggers
+   - Adjust filters if necessary
+
+## 📖 Usage
+
+### Manually Trigger a Workflow
+
 ```bash
 curl -X POST http://localhost:5678/webhook/my-webhook-name \
   -H "Content-Type: application/json" \
   -d '{"key": "value"}'
 ```
- 
-### Monitorer l'exécution
- 
-- Allez à l'onglet **Executions** dans n8n
-- Consultez les logs et les données d'entrée/sortie
-- Vérifiez l'onglet **Evaluations** pour analyser les erreurs
-### Publier un workflow
- 
-1. Cliquez sur le bouton **Publish** (en haut à droite)
-2. Le workflow devient actif et réactif aux déclencheurs
-3. Consultez le statut de publication et les statistiques
+
+### Monitor Execution
+
+- Go to the **Executions** tab in n8n
+- Check logs and input/output data
+- Check the **Evaluations** tab to analyze errors
+
+### Publish a Workflow
+
+1. Click the **Publish** button (top right)
+2. The workflow becomes active and responsive to triggers
+3. Check the publication status and statistics
+
 ## 🏗️ Architecture
- 
-### Flux général
- 
+
+### General Flow
+
 ```
-Déclencheur (Webhook/Chat/Formulaire)
+Trigger (Webhook/Chat/Form)
     ↓
-Filtre & Validation des données
+Data Filter & Validation
     ↓
-Extraction d'informations
+Information Extraction
     ↓
-Logique conditionnelle (If/Else)
+Conditional Logic (If/Else)
     ↓
-Appel IA (Anthropic Chat Model)
+AI Call (Anthropic Chat Model)
     ↓
-Traitement des résultats
+Result Processing
     ↓
-Stockage en base de données
+Database Storage
     ↓
-Notification/Réponse utilisateur
+User Notification/Response
 ```
- 
-### Intégrations principales
- 
-| Intégration | Utilisation |
-|-------------|-----------|
-| Anthropic Chat | Traitement intelligent et réponses IA |
-| Base de données | Stockage persistent des données |
-| Webhooks | Déclenchement externe des workflows |
-| APIs externes | Récupération et synchronisation des données |
- 
-## 📊 Exemples d'exécution
- 
-### Exemple 1 : Form Submission
+
+### Main Integrations
+
+| Integration | Usage |
+|-------------|-------|
+| Anthropic Chat | Intelligent processing and AI responses |
+| Database | Persistent data storage |
+| Webhooks | External workflow triggering |
+| External APIs | Data retrieval and synchronization |
+
+## 📊 Execution Examples
+
+### Example 1: Form Submission
 ```json
 {
   "input": {
     "name": "Hamza",
     "email": "hamza@example.com",
-    "message": "Je souhaite en savoir plus"
+    "message": "I would like to learn more"
   },
   "output": {
     "status": "processed",
-    "response": "Merci pour votre intérêt! Nous vous recontacterons bientôt.",
+    "response": "Thank you for your interest! We will contact you soon.",
     "row_inserted": true
   }
 }
 ```
- 
-### Exemple 2 : AI Chat
+
+### Example 2: AI Chat
 ```json
 {
   "input": {
     "sessionId": "39604...",
-    "chatinput": "Quels sont vos horaires d'ouverture?",
+    "chatinput": "What are your opening hours?",
     "action": "sendMessage"
   },
   "output": {
-    "output": "Nous sommes ouverts de 9h à 18h du lundi au vendredi..."
+    "output": "We are open from 9 AM to 6 PM Monday through Friday..."
   }
 }
 ```
- 
-## 🔐 Sécurité
- 
-- ✅ Les clés API sont stockées dans les variables d'environnement
-- ✅ Les webhooks doivent être protégés par authentification si nécessaire
-- ✅ Utilisez HTTPS pour les connexions en production
-- ✅ Limitez les permissions des comptes de base de données
-- ✅ Activez les logs d'audit pour suivre les exécutions
-## 🐛 Dépannage
- 
-### Le workflow ne se déclenche pas
-- Vérifiez que le webhook est actif (bouton à côté du nœud)
-- Consultez les logs dans **Executions > Failed**
-- Assurez-vous que l'URL du webhook est correcte
-### Erreurs de connexion à la base de données
-- Vérifiez les paramètres de connexion (.env)
-- Assurez-vous que la base de données est accessible
-- Vérifiez les permissions de l'utilisateur DB
-### Problèmes avec Anthropic API
-- Vérifiez votre clé API et son quota
-- Consultez le statut de l'API Anthropic
-- Vérifiez les logs d'exécution pour le détail de l'erreur
-## 📚 Documentation supplémentaire
- 
-- [Documentation n8n](https://docs.n8n.io/)
-- [API Anthropic Claude](https://docs.anthropic.com/)
+
+## 🔐 Security
+
+- ✅ API keys are stored in environment variables
+- ✅ Webhooks should be protected by authentication if necessary
+- ✅ Use HTTPS for connections in production
+- ✅ Limit permissions on database accounts
+- ✅ Enable audit logs to track executions
+
+## 🐛 Troubleshooting
+
+### Workflow doesn't trigger
+- Check that the webhook is active (button next to the node)
+- Check logs in **Executions > Failed**
+- Make sure the webhook URL is correct
+
+### Database connection errors
+- Verify connection parameters (.env)
+- Ensure the database is accessible
+- Check database user permissions
+
+### Anthropic API issues
+- Verify your API key and quota
+- Check Anthropic API status
+- Review execution logs for error details
+
+## 📚 Additional Documentation
+
+- [n8n Documentation](https://docs.n8n.io/)
+- [Anthropic Claude API](https://docs.anthropic.com/)
 - [n8n Workflows Best Practices](https://docs.n8n.io/workflows/best-practices/)
-## 🤝 Contribution
- 
-Les contributions sont bienvenues ! Pour contribuer :
- 
-1. **Fork** le repository
-2. Créez une branche (`git checkout -b feature/AmazingFeature`)
-3. Commitez vos changements (`git commit -m 'Add AmazingFeature'`)
-4. Poussez vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une **Pull Request**
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. **Fork** the repository
+2. Create a branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a **Pull Request**
+
 ### Guidelines
-- Documentez vos workflows dans ce README
-- Exportez les workflows en JSON avant de pusher
-- Testez complètement avant de soumettre une PR
-- Suivez les conventions de nommage existantes
-## 📈 Améliorations futures
- 
-- [ ] Ajouter des webhooks d'authentification
-- [ ] Intégrer d'autres LLMs (OpenAI, Cohere)
-- [ ] Ajouter des tests automatisés
-- [ ] Créer un dashboard de monitoring
-- [ ] Implémenter du rate limiting
-- [ ] Ajouter la gestion des erreurs avancée
+- Document your workflows in this README
+- Export workflows as JSON before pushing
+- Thoroughly test before submitting a PR
+- Follow existing naming conventions
+
+## 📈 Future Improvements
+
+- [ ] Add webhook authentication
+- [ ] Integrate other LLMs (OpenAI, Cohere)
+- [ ] Add automated tests
+- [ ] Create monitoring dashboard
+- [ ] Implement rate limiting
+- [ ] Add advanced error handling
+
 ## 📞 Support
- 
-Pour les questions ou problèmes :
-- Ouvrez une **[Issue](https://github.com/hamzaaithammou-tech/N8N-automation/issues)** sur GitHub
-- Consultez les **[Discussions](https://github.com/hamzaaithammou-tech/N8N-automation/discussions)**
-- Contactez-moi via email : hamza@example.com
-## 📄 Licence
- 
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
- 
-## ⭐ Supportez ce projet
- 
-Si ce repository vous a été utile, n'hésitez pas à donner une ⭐ !
- 
+
+For questions or issues:
+- Open an **[Issue](https://github.com/hamzaaithammou-tech/N8N-automation/issues)** on GitHub
+- Check the **[Discussions](https://github.com/hamzaaithammou-tech/N8N-automation/discussions)**
+- Contact me via email: hamza00bb@gmail.com
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## ⭐ Support This Project
+
+If this repository has been useful to you, feel free to give it a ⭐!
+
 ---
- 
-**Créé avec ❤️ par [Hamza Aithammou](https://github.com/hamzaaithammou-tech)**
- 
-*Dernière mise à jour : 2026*
+
+**Created with ❤️ by [Hamza Aithammou](https://github.com/hamzaaithammou-tech)**
